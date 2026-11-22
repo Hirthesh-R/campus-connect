@@ -205,7 +205,7 @@ async function viewControlPanel(v,sub){
   const club=await ensureLedClub();
   if(!club){v.innerHTML=empty('⚠️','You do not lead any club');return;}
   const parts=(sub||'').split('/');const panel=parts[0]||'';
-  if(!panel){v.innerHTML=head('Control Panel',`Managing: ${esc(club.name)} (Club ID: ${club.id})`)+`<div class="grid hub">${CP_ITEMS.map(([k,i,l])=>`<div class="glass hub-item" onclick="go('control-panel/${k}')"><div class="ico">${i}</div><b>${l}</b></div>`).join('')}</div>`;return;}
+  if(!panel){v.innerHTML=head('Control Panel',`Managing: ${club.name} (Club ID: ${club.id})`)+`<div class="grid hub">${CP_ITEMS.map(([k,i,l])=>`<div class="glass hub-item" onclick="go('control-panel/${k}')"><div class="ico">${i}</div><b>${l}</b></div>`).join('')}</div>`;return;}
   const back=`<button class="btn btn-ghost btn-sm" onclick="go('control-panel')">← Back to Control Panel</button>`;
   const fns={'publish-event':cpPublishEvent,'broadcast':cpBroadcast,'requests':cpRequests,'members':cpMembers,'pub-events':cpPubEvents,'reg-students':cpRegStudents,'attendance':cpAttendance,'projects':cpProjects,'club-info':cpClubInfo};
   const fn=fns[panel]||(async(v)=>{v.innerHTML=empty('❓','Unknown panel');});
