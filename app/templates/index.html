@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusConnect</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div id="toast-container"></div>
+
+  <!-- Auth screen -->
+  <div id="auth-screen" class="auth-wrap">
+    <div class="glass auth-card">
+      <h1 class="brand">Campus<span>Connect</span></h1>
+      <p class="muted">Student, Club &amp; Event Management Platform</p>
+      <div id="login-view">
+        <input id="login-email" type="email" placeholder="Email" autocomplete="username" />
+        <input id="login-password" type="password" placeholder="Password" autocomplete="current-password" />
+        <button class="btn btn-primary block" onclick="doLogin()">Sign In</button>
+        <p class="muted small center">No account? <a href="#" onclick="toggleAuth(true);return false">Register</a></p>
+        <div class="demo-hint">
+          <p class="muted small">Demo accounts (password: password123):</p>
+          <button class="chip" onclick="quickFill('student@campusconnect.com')">Student</button>
+          <button class="chip" onclick="quickFill('clublead@campusconnect.com')">Club Lead</button>
+          <button class="chip" onclick="quickFill('faculty@campusconnect.com')">Faculty</button>
+          <button class="chip" onclick="quickFill('admin@campusconnect.com')">Admin</button>
+        </div>
+      </div>
+      <div id="register-view" class="hidden">
+        <input id="reg-name" placeholder="Full Name" />
+        <input id="reg-email" type="email" placeholder="Email" />
+        <input id="reg-password" type="password" placeholder="Password" />
+        <div class="grid2">
+          <input id="reg-studentId" placeholder="Student ID" />
+          <input id="reg-department" placeholder="Department" />
+          <input id="reg-branch" placeholder="Branch" />
+          <input id="reg-section" placeholder="Section" />
+        </div>
+        <button class="btn btn-primary block" onclick="doRegister()">Create Account</button>
+        <p class="muted small center">Have an account? <a href="#" onclick="toggleAuth(false);return false">Sign In</a></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- App shell -->
+  <div id="app-screen" class="hidden">
+    <header class="topbar glass">
+      <div class="topbar-inner">
+        <div class="brand small" onclick="go('home')">Campus<span>Connect</span></div>
+        <nav id="main-nav"></nav>
+        <div class="topbar-right">
+          <button class="bell" onclick="go('notifications')" title="Notifications">☉<span id="unread-badge" class="badge hidden">0</span></button>
+          <span id="user-chip" class="user-chip"></span>
+          <button class="btn btn-ghost" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </header>
+    <main id="view" class="container"></main>
+  </div>
+
+  <div id="modal-root"></div>
+  <script src="/static/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+services:
+  db:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: campusconnect
+      MYSQL_USER: campus
+      MYSQL_PASSWORD: campuspass
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-prootpass"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  web:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_USER: campus
+      DB_PASSWORD: campuspass
+      DB_NAME: campusconnect
+      SECRET_KEY: change-me-in-production
+      JWT_SECRET_KEY: change-me-jwt-in-production
+    ports:
+      - "5000:5000"
+
+volumes:
+  db_data:
